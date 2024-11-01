@@ -1718,7 +1718,7 @@ if (! class_exists('\\Puvox\\wp_plugin')) {
 			$this->__construct_my();		// All other custom construction hooks 
 		}
 
-		$this->plugin_files		= array_merge( (property_exists($this, 'plugin_files') ? $this->plugin_files : [] ),   ['index.php'] );
+		$this->plugin_files		= array_merge( (property_exists($this, 'plugin_files') ? $this->plugin_files : [] ),   [ 'index.php', basename(__DIR__) . '.php' ] );
 		$this->translation_phrases= $this->get_phrases();
 		$this->is_in_customizer	= (stripos($this->helpers->currentURL, admin_url('customize.php')) !== false);
 		$this->myplugin_class	= 'myplugin puvox_plugin postbox version_'. (!$this->static_settings['has_pro_version']  ? "free" : ($this->is_pro_legal ? "pro" : "not_pro") );
@@ -2437,7 +2437,10 @@ if (! class_exists('\\Puvox\\wp_plugin')) {
 		$cont='';
 		foreach( $this->plugin_files as $each)
 		{
-			$cont .= file_get_contents( $this->helpers->baseDIR.'/'. basename($each) );
+			$filepath = $this->helpers->baseDIR.'/'. basename($each);
+			if (file_exists($filepath)) {
+				$cont .= file_get_contents($filepath);
+			}
 		}
 		preg_match_all( '/\$this\-\>phrase\((.*?)\)/si', $cont, $matches );
 		$phrases_array = $this->get_phrases();

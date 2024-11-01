@@ -29,7 +29,7 @@ namespace AdditionalWpTweaksOptions
 
 	public function declare_settings()
 	{
-		$this->initial_static_options	= 
+		$this->set_initial_static_options(
 		[
 			'has_pro_version'        => 0, 
             'show_opts'              => true, 
@@ -46,9 +46,9 @@ namespace AdditionalWpTweaksOptions
                     'tabs'            => ['custom options'],
                 ],
             ]
-		];
+		]);
 
-		$this->initial_user_options		= 
+		$this->set_initial_user_options(
 		[
 			'custom_note' => [
 				'title'		   => 'Save a note',
@@ -435,7 +435,7 @@ namespace AdditionalWpTweaksOptions
 				'type'		   => 'number',
 				'default'	   => 60,
 			],
-		]; 
+		]); 
 	}
 
 	public function __construct_my()
